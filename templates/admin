@@ -55,7 +55,7 @@ test('ADMIN simulation test', async ({  }) => {
         }
 
         h.log("Waiting for participants to be ready in lobby");
-        await h.delay(5);
+        await h.delay(8);
 
         h.log("Starting the session...");
         res = request('POST', twincodeBack+'/startSession/'+session, {

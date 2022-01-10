@@ -28,7 +28,7 @@ const fs = require('fs');
 
 async function chitchat(pfx,chatBox,page,room){
 
-    h.sc(page);
+    h.sc(page); 
     h.log("Saying hi...");
     await chatBox.type(pfx+"Hi I'm "+code+" at room "+ room);
     await chatBox.type(String.fromCharCode(13));
@@ -105,7 +105,7 @@ test('User simulation test', async ({  }) => {
         h.log("Start");
         await h.delay(2);
 
-        test.setTimeout(60 * 60 * 1000); // 1 hour
+        test.setTimeout(90 * 1000); // 90 Secs
 
         const browser = await chromium.launch();
         const context = await browser.newContext({
@@ -119,18 +119,18 @@ test('User simulation test', async ({  }) => {
         h.log(`Accesing <${url}>`);
         await page.goto(url, { waitUntil: "domcontentloaded" });
         await h.delay(1);
-        h.sc(page);
+        h.sc(page); // 1
 
         h.log(`Introducing token <${token}>`);
         const element = page.locator("#tokenInput");
         await element.type(token);
-        h.sc(page);
+        h.sc(page); //2
         await element.press('Enter');
         h.log(`WAITING for session to start!`);
-        await h.delay(12);
-        h.sc(page);
-        await h.delay(12);
-        h.sc(page);
+        await h.delay(15);
+        h.sc(page); //3
+        await h.delay(10);
+        h.sc(page); //4
 
         const currentURL=await page.url();
 
@@ -143,7 +143,7 @@ test('User simulation test', async ({  }) => {
 
         expect(chatBox).toBeDefined();
 
-        const ccResult1 = await chitchat("(1) ",chatBox,page,room);
+        const ccResult1 = await chitchat("(1) ",chatBox,page,room); //5-6-7
 
         h.log("Checking message number...");
         expect(ccResult1.pmCount).toEqual(1);
@@ -151,7 +151,7 @@ test('User simulation test', async ({  }) => {
 
         h.log("Waiting for individual part...");
         await h.delay(15);
-        h.sc(page);
+        h.sc(page); //8
 
         h.log("Checking chatbox is disabled...");
         const chatbox = await page.$$("#chatbox");
@@ -161,14 +161,14 @@ test('User simulation test', async ({  }) => {
         await expect(disAttr).toBe("disabled");
         
         h.log("Waiting for second Paired part...");
-        await h.delay(15);
-        h.sc(page);
+        await h.delay(20);
+        h.sc(page); //9
 
         chatBox = page.locator("#chatbox");
 
         expect(chatBox).toBeDefined();
 
-        const ccResult2 = await chitchat("(2) ",chatBox,page,room);
+        const ccResult2 = await chitchat("(2) ",chatBox,page,room); //10-11-12
 
         h.log("Checking message number...");
         expect(ccResult2.pmCount).toEqual(1);
@@ -183,7 +183,8 @@ test('User simulation test', async ({  }) => {
         }
 
         h.log("Finishing test...");
-        await h.delay(2);
+        await h.delay(15);
+        h.sc(page); //13
 
         const initialVideoPath = await page.video().path();
       
