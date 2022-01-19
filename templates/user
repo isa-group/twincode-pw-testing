@@ -103,7 +103,7 @@ test('User simulation test', async ({  }) => {
         h.log("Start");
         await h.delay(2);
 
-        test.setTimeout(180 * 1000); // 180 Secs
+        test.setTimeout(240 * 1000); // 240 Secs
 
         const browser = await chromium.launch();
         const context = await browser.newContext({
@@ -189,8 +189,9 @@ test('User simulation test', async ({  }) => {
         
 
         h.log("Finishing test...");
-        await h.delay(20);
+        await h.delay(25);
         h.sc(page); //10
+        await h.delay(5);
 
         const initialVideoPath = await page.video().path();
       
