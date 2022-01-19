@@ -175,7 +175,7 @@ test('User simulation test', async ({  }) => {
         const ccResult2 = await chitchat("(2) ",chatBox,page,room); //9
 
         h.log("Checking message number...");
-        /*
+        
         expect(ccResult2.pmCount).toEqual(1);
         expect(ccResult2.mmCount).toEqual(1);
 
@@ -186,7 +186,7 @@ test('User simulation test', async ({  }) => {
         }else{
             expect(ccResult2.avatar).toBeNull();
         }
-        */
+        
 
         h.log("Finishing test...");
         await h.delay(20);
