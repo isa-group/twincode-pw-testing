@@ -9,7 +9,7 @@ const token = "{{token}}";
 
 require('dotenv').config();
 
-var h = require('../helpers')
+var h = require('../utils/helpers')
 const room = "___"
 h.setPrefix(code);
 h.setPath(__dirname);
