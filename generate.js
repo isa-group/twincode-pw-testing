@@ -31,7 +31,7 @@ function generateAdminTemplate() {
   }
 
   const adminTestFile = testFolder + "/admin.spec.js";
-  const adminTest = mustache.render(adminTemplate, { SESSION_NAME });
+  const adminTest = mustache.render(adminTemplate, { session: SESSION_NAME });
 
   try {
     fs.writeFileSync(adminTestFile, adminTest);
@@ -52,7 +52,10 @@ function generateUserTemplates(session_users, session_token) {
 
   session_users.forEach((code) => {
     const userTestFile = testFolder + "/" + code + ".spec.js";
-    const userTest = mustache.render(userTemplate, { code, session_token });
+    const userTest = mustache.render(userTemplate, {
+      code,
+      token: session_token,
+    });
 
     try {
       fs.writeFileSync(userTestFile, userTest);
