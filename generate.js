@@ -26,7 +26,7 @@ function generateAdminTemplate() {
   try {
     adminTemplate = fs.readFileSync(atFile, "utf8");
   } catch (err) {
-    console.error(`Error reading admin template <${atFile}>:` + err);
+    console.error(`Error reading admin template <${atFile}>: ${err}`);
     process.exit(1);
   }
 
@@ -36,7 +36,7 @@ function generateAdminTemplate() {
   try {
     fs.writeFileSync(adminTestFile, adminTest);
   } catch (err) {
-    console.error(`Error writing admin test <${adminTestFile}>:` + err);
+    console.error(`Error writing admin test <${adminTestFile}>: ${err}`);
     process.exit(1);
   }
 }
@@ -46,7 +46,7 @@ function generateUserTemplates(session_users, session_token) {
   try {
     userTemplate = fs.readFileSync(utFile, "utf8");
   } catch (err) {
-    console.error(`Error reading user template <${utFile}>:` + err);
+    console.error(`Error reading user template <${utFile}>: ${err}`);
     process.exit(1);
   }
 
@@ -60,15 +60,15 @@ function generateUserTemplates(session_users, session_token) {
     try {
       fs.writeFileSync(userTestFile, userTest);
     } catch (err) {
-      console.error(`Error writing user test <${userTestFile}>:` + err);
+      console.error(`Error writing user test <${userTestFile}>: ${err}`);
       process.exit(1);
     }
   });
 }
 
-function printResults(userLenght) {
+function printResults(userLength) {
   console.log(
-    `Test with ${userLenght} users for session <${SESSION_NAME}> generated at:\n  <${testFolder}>`
+    `Test with ${userLength} users for session <${SESSION_NAME}> generated at:\n  <${testFolder}>`
   );
   console.log("\nRun it with the following command:");
   console.log(`npx playwright test ${testFolder}`);
