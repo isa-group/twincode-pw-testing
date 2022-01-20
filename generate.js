@@ -6,6 +6,7 @@ const { getMongoDBData } = require("./utils/db");
 
 // variables
 const SESSION_NAME = "simulacro2022";
+const MAX_NUMBER_OF_USERS = 2;
 const atFile = "./templates/admin";
 const utFile = "./templates/user";
 const rootTestFolder = "./tests";
@@ -50,7 +51,18 @@ function generateUserTemplates(session_users, session_token) {
     process.exit(1);
   }
 
-  session_users.forEach((code) => {
+  if (MAX_NUMBER_OF_USERS < 2 || MAX_NUMBER_OF_USERS > session_users.length) {
+    console.error(
+      `Max number of users must be between 2 and ${session_users.length}`
+    );
+    process.exit(1);
+  }
+
+  session_users.every((code, index) => {
+    if (index === MAX_NUMBER_OF_USERS) {
+      return false;
+    }
+
     const userTestFile = testFolder + "/" + code + ".spec.js";
     const userTest = mustache.render(userTemplate, {
       code,
@@ -59,11 +71,14 @@ function generateUserTemplates(session_users, session_token) {
 
     try {
       fs.writeFileSync(userTestFile, userTest);
+      return true;
     } catch (err) {
       console.error(`Error writing user test <${userTestFile}>: ${err}`);
       process.exit(1);
     }
   });
+
+  printResults(MAX_NUMBER_OF_USERS);
 }
 
 function printResults(userLength) {
@@ -80,6 +95,5 @@ generateAdminTemplate();
 getMongoDBData(SESSION_NAME)
   .then(({ users, token }) => {
     generateUserTemplates(users, token);
-    printResults(users.length);
   })
   .catch((error) => console.error(error));
