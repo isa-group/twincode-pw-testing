@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 const DB_URL = process.env.MONGO_URL;
-const DB_NAME = "myFirstDatabase";
+const DB_NAME = "flockjs";
 
 async function pullSessionFromDatabase(session_name) {
   const client = new MongoClient(DB_URL);
