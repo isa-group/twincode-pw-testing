@@ -1,10 +1,7 @@
-// imports
-require("dotenv").config();
 const fs = require("fs");
 const mustache = require("mustache");
 const { getMongoDBData } = require("./utils/db");
 
-// variables
 const SESSION_NAME = "simulacro2022";
 const MAX_NUMBER_OF_USERS = 2;
 const atFile = "./templates/admin";
@@ -12,7 +9,6 @@ const utFile = "./templates/user";
 const rootTestFolder = "./tests";
 const testFolder = rootTestFolder + "/" + SESSION_NAME;
 
-// declare functions
 function createTestFolder() {
   if (!fs.existsSync(testFolder)) {
     fs.mkdirSync(testFolder);
@@ -89,7 +85,6 @@ function printResults(userLength) {
   console.log(`npx playwright test ${testFolder}`);
 }
 
-// execute functions
 createTestFolder();
 generateAdminTemplate();
 getMongoDBData(SESSION_NAME)
