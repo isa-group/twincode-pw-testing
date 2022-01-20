@@ -1,14 +1,13 @@
 const { MongoClient } = require("mongodb");
 const DB_URL = process.env.MONGO_URL;
 const DB_NAME = "flockjs";
+const mongodbClient = new MongoClient(DB_URL);
 
 async function pullSessionFromDatabase(session_name) {
-  const client = new MongoClient(DB_URL);
-
   try {
-    await client.connect();
+    await mongodbClient.connect();
 
-    const result = await client
+    const result = await mongodbClient
       .db(DB_NAME)
       .collection("sessions")
       .findOne({ name: session_name });
@@ -16,17 +15,15 @@ async function pullSessionFromDatabase(session_name) {
   } catch (error) {
     console.error(error);
   } finally {
-    await client.close();
+    await mongodbClient.close();
   }
 }
 
 async function pullUsersFromDatabase(session_name) {
-  const client = new MongoClient(DB_URL);
-
   try {
-    await client.connect();
+    await mongodbClient.connect();
 
-    const result = await client
+    const result = await mongodbClient
       .db(DB_NAME)
       .collection("users")
       .find({ subject: session_name })
@@ -37,7 +34,7 @@ async function pullUsersFromDatabase(session_name) {
   } catch (error) {
     console.error(error);
   } finally {
-    await client.close();
+    await mongodbClient.close();
   }
 }
 
