@@ -1,5 +1,6 @@
 const { MongoClient } = require("mongodb");
 const DB_URL = process.env.MONGO_URL;
+const DB_NAME = "myFirstDatabase";
 
 async function pullSessionFromDatabase(session_name) {
   const client = new MongoClient(DB_URL);
@@ -8,7 +9,7 @@ async function pullSessionFromDatabase(session_name) {
     await client.connect();
 
     const result = await client
-      .db("myFirstDatabase") //TODO: replace database name
+      .db(DB_NAME)
       .collection("sessions")
       .findOne({ name: session_name });
     return result;
@@ -26,7 +27,7 @@ async function pullUsersFromDatabase(session_name) {
     await client.connect();
 
     const result = await client
-      .db("myFirstDatabase")
+      .db(DB_NAME)
       .collection("users")
       .find({ subject: session_name })
       .project({ _id: 0, code: 1 })
