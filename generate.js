@@ -5,8 +5,8 @@ const atFile = "./templates/admin";
 const utFile = "./templates/user";
 const rootTestFolder = "./tests" 
 
-var session = "simulacro2021";
-var codes = [543650,815247,104598];
+var session = "simulacro2022";
+var codes = [104599,815248,543651,375119,353986,149730]//[104599,815248,543651,375119,353986,149730,947683,368625,989569,121315,630536,787692,966249,983311,390404];
 var token = "melon";
 
 const testFolder = rootTestFolder+"/"+session;

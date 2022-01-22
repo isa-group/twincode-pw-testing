@@ -1,7 +1,7 @@
 /* Test parameters **********/
 
-const code = {{code}};
-const token = "{{token}}";
+const code = 543651;
+const token = "melon";
 
 /////////////////////////
 
@@ -103,7 +103,7 @@ test('User simulation test', async ({  }) => {
         h.log("Start");
         await h.delay(2);
 
-        test.setTimeout(240 * 1000); // 240 Secs
+        test.setTimeout(180 * 1000); // 180 Secs
 
         const browser = await chromium.launch();
         const context = await browser.newContext({
@@ -145,13 +145,12 @@ test('User simulation test', async ({  }) => {
         await h.delay(8);
         const ccResult1 = await chitchat("(1) ",chatBox,page,room); //5
 
-        await h.delay(2);
         h.log("Checking message number...");
         expect(ccResult1.pmCount).toEqual(1);
         expect(ccResult1.mmCount).toEqual(1);
 
         h.log("Waiting for individual part...");
-        await h.delay(30);
+        await h.delay(32);
         h.sc(page); //6
 
         h.log("Checking chatbox is disabled...");
@@ -176,8 +175,7 @@ test('User simulation test', async ({  }) => {
         const ccResult2 = await chitchat("(2) ",chatBox,page,room); //9
 
         h.log("Checking message number...");
-        
-        await h.delay(2);
+        /*
         expect(ccResult2.pmCount).toEqual(1);
         expect(ccResult2.mmCount).toEqual(1);
 
@@ -188,15 +186,15 @@ test('User simulation test', async ({  }) => {
         }else{
             expect(ccResult2.avatar).toBeNull();
         }
-        
+        */
 
         h.log("Finishing test...");
-        await h.delay(23);
+        await h.delay(20);
         h.sc(page); //10
-        await h.delay(5);
 
         const initialVideoPath = await page.video().path();
       
+        await h.delay(10);
         await browser.close();
       
         h.log(`Test recorded on <...${initialVideoPath.slice(-60)}>`);
@@ -215,7 +213,6 @@ test('User simulation test', async ({  }) => {
             h.log(`Recording available at <...${videoPath.slice(-60)}>`);
         });
 
-        await h.delay(5);
         h.log("Finish.");
 
     }catch(e){

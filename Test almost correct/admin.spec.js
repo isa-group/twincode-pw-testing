@@ -1,4 +1,4 @@
-const session = "{{session}}";
+const session = "simulacro2022";
 
 /////////////////////
 require('dotenv').config();
