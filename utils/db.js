@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const { MongoClient } = require("mongodb");
 const DB_URL = process.env.MONGO_URL;
-const DB_NAME = "flockjs";
+const DB_NAME = process.env.DB_NAME;
 const mongodbClient = new MongoClient(DB_URL);
 
 async function pullSessionFromDatabase(session_name) {
