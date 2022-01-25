@@ -9,7 +9,11 @@ const utFile = "./templates/user";
 const rootTestFolder = "./tests";
 const testFolder = rootTestFolder + "/" + SESSION_NAME;
 
-function createTestFolder() {
+function createTestFolders() {
+  if (!fs.existsSync(rootTestFolder)) {
+    fs.mkdirSync(rootTestFolder);
+  }
+
   if (!fs.existsSync(testFolder)) {
     fs.mkdirSync(testFolder);
   } else {
@@ -85,7 +89,7 @@ function printResults(userLength) {
   console.log(`npx playwright test ${testFolder}`);
 }
 
-createTestFolder();
+createTestFolders();
 generateAdminTemplate();
 getMongoDBData(SESSION_NAME)
   .then(({ users, token }) => {
