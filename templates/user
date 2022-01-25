@@ -145,12 +145,13 @@ test('User simulation test', async ({  }) => {
         await h.delay(8);
         const ccResult1 = await chitchat("(1) ",chatBox,page,room); //5
 
+        await h.delay(2);
         h.log("Checking message number...");
         expect(ccResult1.pmCount).toEqual(1);
         expect(ccResult1.mmCount).toEqual(1);
 
         h.log("Waiting for individual part...");
-        await h.delay(32);
+        await h.delay(30);
         h.sc(page); //6
 
         h.log("Checking chatbox is disabled...");
@@ -176,6 +177,7 @@ test('User simulation test', async ({  }) => {
 
         h.log("Checking message number...");
         
+        await h.delay(2);
         expect(ccResult2.pmCount).toEqual(1);
         expect(ccResult2.mmCount).toEqual(1);
 
@@ -189,7 +191,7 @@ test('User simulation test', async ({  }) => {
         
 
         h.log("Finishing test...");
-        await h.delay(25);
+        await h.delay(23);
         h.sc(page); //10
         await h.delay(5);
 
@@ -213,6 +215,7 @@ test('User simulation test', async ({  }) => {
             h.log(`Recording available at <...${videoPath.slice(-60)}>`);
         });
 
+        await h.delay(5);
         h.log("Finish.");
 
     }catch(e){
