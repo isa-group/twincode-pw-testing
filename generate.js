@@ -4,6 +4,7 @@ const { getMongoDBData } = require("./utils/db");
 
 const SESSION_NAME = "simulacro2022";
 const MAX_NUMBER_OF_USERS = 2;
+
 const atFile = "./templates/admin";
 const utFile = "./templates/user";
 const rootTestFolder = "./tests";
@@ -42,7 +43,7 @@ function generateAdminTemplate() {
   }
 }
 
-function generateUserTemplates(session_users, session_token) {
+function generateUserTemplates(session_users, session_token, session_times) {
   let userTemplate = null;
   try {
     userTemplate = fs.readFileSync(utFile, "utf8");
@@ -64,9 +65,11 @@ function generateUserTemplates(session_users, session_token) {
     }
 
     const userTestFile = testFolder + "/" + code + ".spec.js";
+    console.log(session_times);
     const userTest = mustache.render(userTemplate, {
       code,
       token: session_token,
+      times: session_times,
     });
 
     try {
@@ -92,7 +95,7 @@ function printResults(userLength) {
 createTestFolders();
 generateAdminTemplate();
 getMongoDBData(SESSION_NAME)
-  .then(({ users, token }) => {
-    generateUserTemplates(users, token);
+  .then(({ users, token, times }) => {
+    generateUserTemplates(users, token, times);
   })
   .catch((error) => console.error(error));

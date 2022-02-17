@@ -1,15 +1,30 @@
+/* Imports **********/
+require('dotenv').config();
+const { expect, test, chromium} = require('@playwright/test');
+const fs = require('fs');
+
+var h = require('../../utils/helpers')
+
+
+/////////////////////////
+
 /* Test parameters **********/
 
 const code = {{code}};
 const token = "{{token}}";
+const timeArray = [
+    {{#times}}
+        {
+            testTime: {{testTime}},
+            waitTime: {{time}}
+        },
+    {{/times}}
+];
 
 /////////////////////////
 
 /* Initialize test configuration **********/
 
-require('dotenv').config();
-
-var h = require('../../utils/helpers')
 const room = "___"
 h.setPrefix(code);
 h.setPath(__dirname);
@@ -21,13 +36,9 @@ if (!twincodeFront){
     process.exit(1);
 }
 
-const { expect, test, chromium} = require('@playwright/test');
-const fs = require('fs');
-
 /* Custom Test Helper Functions **********/
 
 async function chitchat(pfx,chatBox,page,room){
-
     h.log("Saying hi...");
     await chatBox.type(pfx+"Hi I'm "+code+" at room "+ room);
     await chatBox.type(String.fromCharCode(13));
@@ -90,7 +101,6 @@ function gender(avatar){
         return "M";
     else
         return null;
-    
 }
 
 
@@ -151,7 +161,7 @@ test('User simulation test', async ({  }) => {
         expect(ccResult1.mmCount).toEqual(1);
 
         h.log("Waiting for individual part...");
-        await h.delay(30);
+        await h.delay(timeArray[0].testTime);
         h.sc(page); //6
 
         h.log("Checking chatbox is disabled...");
@@ -161,11 +171,11 @@ test('User simulation test', async ({  }) => {
         const disAttr = await chatbox[0].getAttribute("disabled");
         //await expect(disAttr).toBe("disabled");
 
-        await h.delay(10);
+        await h.delay(timeArray[0].waitTime);
         h.sc(page); //7
         
         h.log("Waiting for second Paired part...");
-        await h.delay(30);
+        await h.delay(timeArray[1].testTime);
         h.sc(page); //8
 
         await h.delay(20);
