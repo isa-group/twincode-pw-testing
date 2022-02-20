@@ -3,7 +3,7 @@ const session = "{{session}}";
 /////////////////////
 require('dotenv').config();
 
-var h = require('../helpers')
+var h = require('../../utils/helpers')
 h.setPrefix("ADMIN");
 
 const admin_secret = process.env.ADMIN_SECRET;
